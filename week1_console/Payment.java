@@ -8,10 +8,10 @@ public class Payment {
     }
 
     public boolean isEnoughMoney() {
-        return inputMoney >= order.getTotalPrice();
+        return inputMoney >= order.calculateTotalPrice();
     }
 
     public int getChange() {
-        return inputMoney - order.getTotalPrice();
+        return inputMoney - order.calculateTotalPrice();
     }
 }

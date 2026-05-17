@@ -9,6 +9,6 @@ public class GoodsProduct extends Product {
     }
 
     public String getProductInfo() {
-        return goodsType;
+        return music.getMusicInfo() + " " + goodsType;
     }
 }

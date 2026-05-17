@@ -10,10 +10,7 @@ public class Order {
     }
 
     public int calculateTotalPrice() {
-        return musicProduct.getPrice() + goodsProduct.getPrice();
-    }
-
-    public int getTotalPrice() {
+        totalPrice = musicProduct.getPrice() + goodsProduct.getPrice();
         return totalPrice;
     }
 
