@@ -9,7 +9,7 @@ public class Main {
         String[] singer = {"NewJeans", "IVE", "aespa", "IU", "BTS", "The Weeknd", "Olivia Rodrigo", "Harry Styles", 
         "Miley Cyrus", "Sabrina Carpenter"};
         String[] songName = {"Ditto", "LOVE DIVE", "Next Level", "Celebrity", "Dynamite", "Blinding Lights", "drivers license", "As It Was", "Flowers", "Espresso"};
-        String[] MusicProduct = {"LP", "CD", "Cassette Tape"};
+        String[] musicProduct = {"LP", "CD", "Cassette Tape"};
         System.out.println("구매할 음악을 골라주세요.");
         for (int i=0; i<singer.length; i++) {
             System.out.println((i+1) + ". " + singer[i] + " - " + songName[i]);
@@ -22,17 +22,17 @@ public class Main {
             System.out.println("잘못된 선택입니다.");
         }
         System.out.println("음악을 받을 방식을 선택해주세요.");
-        for (int i=0; i<MusicProduct.length; i++) {
-            System.out.println((i+1) + ". " + MusicProduct[i]);
+        for (int i=0; i<musicProduct.length; i++) {
+            System.out.println((i+1) + ". " + musicProduct[i]);
         }
         System.out.print("선택값(1~3): ");
         int productChoice = scanner.nextInt();
         if (productChoice >= 1 && productChoice <= 3) {
-            System.out.println("선택하신 방식은 " + MusicProduct[productChoice-1] + "입니다.");
+            System.out.println("선택하신 방식은 " + musicProduct[productChoice-1] + "입니다.");
         } else {
             System.out.println("잘못된 선택입니다.");
         }
-        
+
 
 
     }
