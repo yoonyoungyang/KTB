@@ -1,97 +1,140 @@
-import java.util.Scanner; // 입력값을 받으려면 java.util.Scanner를 임포트해야만 함
+import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
-        System.out.println("LP 가게 시작!");
-        String[] singer = { "NewJeans", "IVE", "aespa", "IU", "BTS", "The Weeknd", "Olivia Rodrigo", "Harry Styles",
-                "Miley Cyrus", "Sabrina Carpenter" };
-        String[] songName = { "Ditto", "LOVE DIVE", "Next Level", "Celebrity", "Dynamite", "Blinding Lights",
-                "drivers license", "As It Was", "Flowers", "Espresso" };
-        String[] musicProduct = { "LP", "CD", "Cassette Tape" };
-        String[] goodsProduct = { "Poster", "Sticker Small", "Sticker Medium", "Sticker Large", "선택 안 함" };
-        int[] lpPrice = { 50000, 45000, 40000, 35000, 30000, 25000, 20000, 15000, 12000, 10000 };
-        int[] cdPrice = { 10000, 9500, 9000, 8500, 8000, 7500, 7000, 6500, 6000, 5000 };
-        int[] cassettePrice = { 9000, 8500, 8000, 7500, 7000, 6500, 6000, 5500, 5000, 4000 };
-        int[] goodsPrice = { 5000, 2000, 3000, 5000, 0 };
-        int musicPrice = 0;
+        Music[] musicList = {
+                new Music("NewJeans", "Ditto"),
+                new Music("IVE", "LOVE DIVE"),
+                new Music("aespa", "Next Level"),
+                new Music("IU", "Celebrity"),
+                new Music("BTS", "Dynamite"),
+                new Music("The Weeknd", "Blinding Lights"),
+                new Music("Olivia Rodrigo", "drivers license"),
+                new Music("Harry Styles", "As It Was"),
+                new Music("Miley Cyrus", "Flowers"),
+                new Music("Sabrina Carpenter", "Espresso")
+        };
+
+        String[] mediaTypes = { "LP", "CD", "Cassette Tape" };
+
+        int[][] musicPrices = {
+                { 50000, 10000, 9000 },
+                { 45000, 9500, 8500 },
+                { 40000, 9000, 8000 },
+                { 35000, 8500, 7500 },
+                { 30000, 8000, 7000 },
+                { 25000, 7500, 6500 },
+                { 20000, 7000, 6000 },
+                { 15000, 6500, 5500 },
+                { 12000, 6000, 5000 },
+                { 10000, 5000, 4000 }
+        };
+
+        System.out.println("===== 음악 상품 구매 프로그램 =====");
+        System.out.println();
+
         System.out.println("구매할 음악을 골라주세요.");
-        for (int i = 0; i < singer.length; i++) {
-            System.out.println((i + 1) + ". " + singer[i] + " - " + songName[i]);
+        for (int i = 0; i < musicList.length; i++) {
+            System.out.println((i + 1) + ". " + musicList[i].getMusicInfo());
         }
+
         System.out.print("선택값(1~10): ");
-        int choice = scanner.nextInt();
-        while (true) {
-            if (choice >= 1 && choice <= 10) {
-                System.out.println("선택하신 음악은 " + singer[choice - 1] + " - " + songName[choice - 1] + "입니다.");
-                break;
-            } else {
-                System.out.println("잘못된 선택입니다. 다시 입력해주세요.");
-                System.out.print("선택값(1~10): ");
-                choice = scanner.nextInt();
-            }
+        int musicChoice = scanner.nextInt();
+
+        while (musicChoice < 1 || musicChoice > 10) {
+            System.out.println("잘못된 선택입니다. 다시 입력해주세요.");
+            System.out.print("선택값(1~10): ");
+            musicChoice = scanner.nextInt();
         }
+
+        Music selectedMusic = musicList[musicChoice - 1];
+
+        System.out.println();
         System.out.println("음악을 받을 방식을 선택해주세요.");
-        for (int i = 0; i < musicProduct.length; i++) {
-            System.out.println((i + 1) + ". " + musicProduct[i]);
+        for (int i = 0; i < mediaTypes.length; i++) {
+            System.out.println((i + 1) + ". " + mediaTypes[i]);
         }
+
         System.out.print("선택값(1~3): ");
-        int productChoice = scanner.nextInt();
-        while (true) {
-            if (productChoice >= 1 && productChoice <= 3) {
-                System.out.println("선택하신 방식은 " + musicProduct[productChoice - 1] + "입니다.");
-                break;
-            } else {
-                System.out.println("잘못된 선택입니다. 다시 입력해주세요.");
-                System.out.print("선택값(1~3): ");
-                productChoice = scanner.nextInt();
-            }
+        int mediaChoice = scanner.nextInt();
+
+        while (mediaChoice < 1 || mediaChoice > 3) {
+            System.out.println("잘못된 선택입니다. 다시 입력해주세요.");
+            System.out.print("선택값(1~3): ");
+            mediaChoice = scanner.nextInt();
         }
-        System.out.println("구매할 상품을 선택해주세요.");
-        for (int i = 0; i < goodsProduct.length; i++) {
-            System.out.println((i + 1) + ". " + goodsProduct[i]);
+
+        String selectedMediaType = mediaTypes[mediaChoice - 1];
+        int selectedMusicPrice = musicPrices[musicChoice - 1][mediaChoice - 1];
+
+        MusicProduct selectedMusicProduct = new MusicProduct(
+                musicChoice,
+                selectedMusic.getMusicInfo() + " " + selectedMediaType,
+                selectedMusicPrice,
+                selectedMusic,
+                selectedMediaType);
+
+        GoodsProduct[] goodsList = {
+                new GoodsProduct(1, "Poster", 5000, selectedMusic, "Poster"),
+                new GoodsProduct(2, "Sticker Small", 2000, selectedMusic, "Sticker Small"),
+                new GoodsProduct(3, "Sticker Medium", 3000, selectedMusic, "Sticker Medium"),
+                new GoodsProduct(4, "Sticker Large", 5000, selectedMusic, "Sticker Large"),
+                new GoodsProduct(5, "선택 안 함", 0, selectedMusic, "선택 안 함")
+        };
+
+        System.out.println();
+        System.out.println("부가 상품을 골라주세요.");
+        for (int i = 0; i < goodsList.length; i++) {
+            System.out.println((i + 1) + ". "
+                    + goodsList[i].getProductInfo()
+                    + " - "
+                    + goodsList[i].getPrice()
+                    + "원");
         }
+
         System.out.print("선택값(1~5): ");
         int goodsChoice = scanner.nextInt();
-        while (true) {
-            if (goodsChoice >= 1 && goodsChoice <= 5) {
-                System.out.println("선택하신 상품은 " + goodsProduct[goodsChoice - 1] + "입니다.");
-                break;
-            } else {
-                System.out.println("잘못된 선택입니다. 다시 입력해주세요.");
-                System.out.print("선택값(1~5): ");
-                goodsChoice = scanner.nextInt();
-            }
+
+        while (goodsChoice < 1 || goodsChoice > 5) {
+            System.out.println("잘못된 선택입니다. 다시 입력해주세요.");
+            System.out.print("선택값(1~5): ");
+            goodsChoice = scanner.nextInt();
         }
-        if (productChoice == 1) {
-            musicPrice = lpPrice[choice - 1];
-        } else if (productChoice == 2) {
-            musicPrice = cdPrice[choice - 1];
-        } else if (productChoice == 3) {
-            musicPrice = cassettePrice[choice - 1];
-        }
-        int totalPrice = musicPrice + goodsPrice[goodsChoice - 1];
-        System.out.println("선택하신 물품은 " + singer[choice - 1] + " - " + songName[choice - 1] + " "
-                + musicProduct[productChoice - 1] + " + " + goodsProduct[goodsChoice - 1] + "입니다.");
-        System.out.println("총 가격은 " + totalPrice + "원입니다.");
-        System.out.println("돈을 넣어주세요.");
-        System.out.print("넣은 돈: ");
+
+        GoodsProduct selectedGoodsProduct = goodsList[goodsChoice - 1];
+
+        Order order = new Order(selectedMusicProduct, selectedGoodsProduct);
+
+        System.out.println();
+        System.out.println(order.getOrderInfo());
+
+        System.out.print("투입할 금액 입력: ");
         int inputMoney = scanner.nextInt();
-        while (true) {
-            if (inputMoney < totalPrice) {
-                System.out.println("돈이 부족합니다. 돈을 더 넣어주세요.");
-                System.out.print("추가 입력값: ");
-                inputMoney += scanner.nextInt();
-            } else if (inputMoney == totalPrice) {
-                System.out.println("결제가 완료되었습니다. 감사합니다!");
-                break;
-            } else if (inputMoney > totalPrice) {
-                int change = inputMoney - totalPrice;
-                System.out.println("결제가 완료되었습니다. 거스름돈은 " + change + "원입니다. 감사합니다!");
-                break;
-            }
+
+        Payment payment = new Payment(order, inputMoney);
+
+        while (!payment.isEnoughMoney()) {
+            System.out.println();
+            System.out.println("금액이 부족합니다. 총 금액 이상을 다시 입력해주세요.");
+            System.out.print("추가 금액 입력: ");
+
+            int additionalMoney = scanner.nextInt();
+            inputMoney += additionalMoney;
+
+            payment = new Payment(order, inputMoney);
         }
+
+        System.out.println();
+        System.out.println("결제가 완료되었습니다.");
+
+        if (payment.getChange() > 0) {
+            System.out.println("남은 금액 " + payment.getChange() + "원을 반환해드립니다.");
+        }
+
+        System.out.println("프로그램을 종료합니다.");
+
         scanner.close();
     }
 }
