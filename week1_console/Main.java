@@ -76,6 +76,7 @@ public class Main {
                 + musicProduct[productChoice - 1] + " + " + goodsProduct[goodsChoice - 1] + "입니다.");
         System.out.println("총 가격은 " + totalPrice + "원입니다.");
         System.out.println("돈을 넣어주세요.");
+        System.out.print("넣은 돈: ");
         int inputMoney = scanner.nextInt();
         while (true) {
             if (inputMoney < totalPrice) {
