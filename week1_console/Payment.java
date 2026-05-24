@@ -14,4 +14,12 @@ public class Payment {
     public int getChange() {
         return inputMoney - order.calculateTotalPrice();
     }
+
+    public int addMoney(int additionalMoney) {
+        return inputMoney += additionalMoney;
+    }
+
+    public int getLackMoney() {
+        return order.calculateTotalPrice() - inputMoney;
+    }
 }

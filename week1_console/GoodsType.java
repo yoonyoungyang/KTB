@@ -1,8 +1,8 @@
 public enum GoodsType {
-    poster("poster"),
-    Sticker_Small("Sticker Small"),
-    Sticker_Medium("Sticker Medium"),
-    Sticker_Large("Sticker Large"),
+    POSTER("poster"),
+    STICKER_SMALL("Sticker Small"),
+    STICKER_MEDIUM("Sticker Medium"),
+    STICKER_LARGE("Sticker Large"),
     NONE("선택 안 함");
 
     private final String displayName;
