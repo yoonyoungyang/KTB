@@ -3,10 +3,10 @@ public class Order {
     private GoodsProduct goodsProduct;
     private int totalPrice;
 
-    public Order(MusicProduct musicProduct, GoodsProduct goodsProduct) {
+    public Order(MusicProduct musicProduct, GoodsProduct goodsProduct, int totalPrice) {
         this.musicProduct = musicProduct;
         this.goodsProduct = goodsProduct;
-        this.totalPrice = calculateTotalPrice();
+        this.totalPrice = totalPrice;
     }
 
     public int calculateTotalPrice() {
@@ -15,12 +15,7 @@ public class Order {
     }
 
     public String getOrderInfo() {
-        return "선택하신 물품은 "
-                + musicProduct.getProductInfo()
-                + " + "
-                + goodsProduct.getProductInfo()
-                + "이며, 가격은 "
-                + totalPrice
-                + "원입니다.";
+        return "선택하신 물품은 " + musicProduct.getProductInfo() + " + " + goodsProduct.getProductInfo() + "이며, 가격은 "
+                + totalPrice + "원입니다.";
     }
 }

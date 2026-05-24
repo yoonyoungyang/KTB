@@ -4,19 +4,6 @@ public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
-        Music[] musicList = {
-                new Music("NewJeans", "Ditto"),
-                new Music("IVE", "LOVE DIVE"),
-                new Music("aespa", "Next Level"),
-                new Music("IU", "Celebrity"),
-                new Music("BTS", "Dynamite"),
-                new Music("The Weeknd", "Blinding Lights"),
-                new Music("Olivia Rodrigo", "drivers license"),
-                new Music("Harry Styles", "As It Was"),
-                new Music("Miley Cyrus", "Flowers"),
-                new Music("Sabrina Carpenter", "Espresso")
-        };
-
         String[] mediaTypes = { "LP", "CD", "Cassette Tape" };
 
         int[][] musicPrices = {
