@@ -5,6 +5,10 @@ public class Main {
         InputView inputView = new InputView();
         OutputView outputView = new OutputView();
 
+        StoreMusicTask storeMusicTask = new StoreMusicTask(productCatalog.getMusics());
+        Thread musicThread = new Thread(storeMusicTask);
+        musicThread.start();
+
         outputView.printStartMessage();
 
         outputView.printMusicList(productCatalog.getMusics());
@@ -49,7 +53,7 @@ public class Main {
             int change = payment.getChange();
             outputView.printChange(change);
         }
-
+        musicThread.interrupt();
         outputView.printFinishMessage();
     }
 }
